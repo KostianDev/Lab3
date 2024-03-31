@@ -214,13 +214,13 @@ l_list *drawGraph(SDL_Renderer *renderer, SDL_Window *window, struct test matrix
     int width, height, xTopCircles, xLowCircles, yCircles, turn = 1, mid;
     int gap, gap1, gap2, gap3, r, key = 1, pos = 1, flag = 1;
 
-    mid = (abs(N - 6)) / 4;
+    mid = (abs(N - 5)) / 4;
     yCircles = 2 + mid * 2;
     xLowCircles = (N - yCircles) / 2;
     xTopCircles = N - xLowCircles - yCircles;
     SDL_GetWindowSize(window, &width, &height);
 
-    r = height > width ? width / (int) ((sizeMult + 1) * xTopCircles + sizeMult) :
+    r = (height > width || (N >= 7 && N < 9)) ? width / (int) ((sizeMult + 1) * (xTopCircles + 1) + sizeMult) :
             height / ((sizeMult + 1) * (yCircles / 2 + 1) + sizeMult);
 
     gap = r * sizeMult;
