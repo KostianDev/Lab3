@@ -43,7 +43,7 @@ struct test generateDirectedMatrix();
 
 struct test generateUndirectedMatrix(struct test s2);
 
-void printMatrix(struct test matrix, FILE *fptr);
+void printMatrix(struct test matrix, FILE *fptr, const char[]);
 
 void clearScreen(SDL_Renderer *Renderer);
 
@@ -67,11 +67,14 @@ int main(int argc, char *argv[]) {
 
     TTF_Init();
 
+    const char dirM[] = "directed graph matrix";
+    const char undirM[] = "undirected graph matrix";
+
     struct test directedMatrix = generateDirectedMatrix();
     struct test undirectedMatrix = generateUndirectedMatrix(directedMatrix);
 
-    printMatrix(directedMatrix, fptr);
-    printMatrix(undirectedMatrix, fptr);
+    printMatrix(directedMatrix, fptr, dirM);
+    printMatrix(undirectedMatrix, fptr, undirM);
 
     l_list *list1_ptr, *list2_ptr;
 
@@ -201,10 +204,9 @@ struct test generateUndirectedMatrix(struct test s2) {
     return s2;
 }
 
-void printMatrix(struct test matrix, FILE *fptr) {
+void printMatrix(struct test matrix, FILE *fptr, const char matrixName[]) {
     fptr = fopen("Output.txt", "a");
-    fprintf(fptr, "\n");
-    fprintf(fptr, "Here is your matrix:\n\n");
+    fprintf(fptr, "\nHere is your %s:\n\n", matrixName);
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
             fprintf(fptr, " %2.0lf", matrix.matrix[i][j]);
