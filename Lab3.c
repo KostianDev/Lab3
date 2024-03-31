@@ -214,14 +214,14 @@ l_list *drawGraph(SDL_Renderer *renderer, SDL_Window *window, struct test matrix
     int width, height, xTopCircles, xLowCircles, yCircles, turn = 1, mid;
     int gap, gap1, gap2, gap3, r, key = 1, pos = 1, flag = 1;
 
-    mid = (N - 10) / 4;
-    yCircles = 4 + mid * 2;
+    mid = (abs(N - 6)) / 4;
+    yCircles = 2 + mid * 2;
     xLowCircles = (N - yCircles) / 2;
     xTopCircles = N - xLowCircles - yCircles;
     SDL_GetWindowSize(window, &width, &height);
 
-    if (height > width) r = width / (int) (3.5 * xTopCircles + 1.5);
-    else r = height / (4 * (yCircles / 2 + 2) + 2);
+    r = height > width ? width / (int) ((sizeMult + 1) * xTopCircles + sizeMult) :
+            height / ((sizeMult + 1) * (yCircles / 2 + 1) + sizeMult);
 
     gap = r * sizeMult;
     gap1 = (width - 2 * gap - (xTopCircles + 1) * 2 * r) / xTopCircles;
@@ -233,7 +233,7 @@ l_list *drawGraph(SDL_Renderer *renderer, SDL_Window *window, struct test matrix
     list_ptr = l_list_init(key, gap + r, gap2 + r, pos);
     key++;
 
-    while(key < N) {
+    while(key <= N) {
         switch (turn % 4) {
             case 1:
                 for (int j = 1; j < xTopCircles; ++j) {
