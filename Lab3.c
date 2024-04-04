@@ -19,9 +19,9 @@
 #define sizeMult 3
 #define shiftAngle (M_PI / 18.0)
 
-struct test {
+typedef struct passMatrix {
     double matrix[N][N];
-};
+} matrix;
 
 typedef struct node {
     int key;
@@ -39,11 +39,11 @@ l_list *delfrom_start(l_list *l_pointer);
 
 l_list *find_num(l_list *l_pointer, int key);
 
-struct test generateDirectedMatrix();
+matrix generateDirectedMatrix();
 
-struct test generateUndirectedMatrix(struct test s2);
+matrix generateUndirectedMatrix(matrix s2);
 
-void printMatrix(struct test matrix, FILE *fptr, const char[]);
+void printMatrix(matrix matrix, FILE *fptr, const char[]);
 
 void clearScreen(SDL_Renderer *Renderer);
 
@@ -55,7 +55,7 @@ void drawArrowHead(SDL_Renderer *renderer, int endX, int endY, int gap, double a
 
 void drawNodeNumber(SDL_Renderer *renderer, int number, int x, int y, int gap);
 
-l_list *drawGraph(SDL_Renderer *renderer, SDL_Window *window, struct test matrix, l_list *list_ptr);
+l_list *drawGraph(SDL_Renderer *renderer, SDL_Window *window, matrix matrix, l_list *list_ptr);
 
 void drawConnections(SDL_Renderer *renderer, l_list *node1, l_list *node2,
                      int r, int dir, int width, int height, int gap2);
@@ -70,8 +70,8 @@ int main(int argc, char *argv[]) {
     const char dirM[] = "directed graph matrix";
     const char undirM[] = "undirected graph matrix";
 
-    struct test directedMatrix = generateDirectedMatrix();
-    struct test undirectedMatrix = generateUndirectedMatrix(directedMatrix);
+    matrix directedMatrix = generateDirectedMatrix();
+    matrix undirectedMatrix = generateUndirectedMatrix(directedMatrix);
 
     printMatrix(directedMatrix, fptr, dirM);
     printMatrix(undirectedMatrix, fptr, undirM);
@@ -181,8 +181,8 @@ l_list *find_num(l_list *l_pointer, int key) {
     return NULL;
 }
 
-struct test generateDirectedMatrix() {
-    struct test s1;
+matrix generateDirectedMatrix() {
+    matrix s1;
     double a;
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
@@ -194,7 +194,7 @@ struct test generateDirectedMatrix() {
     return s1;
 }
 
-struct test generateUndirectedMatrix(struct test s2) {
+matrix generateUndirectedMatrix(matrix s2) {
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
             if (s2.matrix[i][j] == 1)
@@ -204,7 +204,7 @@ struct test generateUndirectedMatrix(struct test s2) {
     return s2;
 }
 
-void printMatrix(struct test matrix, FILE *fptr, const char matrixName[]) {
+void printMatrix(matrix matrix, FILE *fptr, const char matrixName[]) {
     fptr = fopen("Output.txt", "a");
     fprintf(fptr, "\nHere is your %s:\n\n", matrixName);
     for (int i = 0; i < N; ++i) {
@@ -314,7 +314,7 @@ void drawNodeNumber(SDL_Renderer *renderer, int number, int x, int y, int gap) {
     TTF_CloseFont(font);
 }
 
-l_list *drawGraph(SDL_Renderer *renderer, SDL_Window *window, struct test matrix, l_list *list_ptr) {
+l_list *drawGraph(SDL_Renderer *renderer, SDL_Window *window, matrix matrix, l_list *list_ptr) {
     int width, height, xTopCircles, xLowCircles, yCircles, turn = 1, mid;
     int gap, gap1, gap2, gap3, r, key = 1, pos = 1, flag = 1;
 
