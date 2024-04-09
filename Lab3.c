@@ -9,7 +9,7 @@
 #define n3 0
 #define n4 3
 #define N (10 + n3)
-#define max_rand 199
+#define max_rand 19
 #define min_rand 0
 #define k (1.0 - n3 * 0.02 - n4 * 0.005 - 0.25)
 #define WIDTH 800
@@ -67,8 +67,8 @@ int main(int argc, char *argv[]) {
 
     TTF_Init();
 
-    const char dirM[] = "directed graph matrix";
-    const char undirM[] = "undirected graph matrix";
+    const char dirM[] = "directed graph's matrix";
+    const char undirM[] = "undirected graph's matrix";
 
     matrix directedMatrix = generateDirectedMatrix();
     matrix undirectedMatrix = generateUndirectedMatrix(directedMatrix);
@@ -172,11 +172,8 @@ l_list *find_num(l_list *l_pointer, int key) {
     l_list *this_node = l_pointer;
 
     while (this_node != NULL) {
-        if (this_node->key == key) {
-            return this_node;
-        } else {
-            this_node = this_node->next_node;
-        }
+        if (this_node->key == key) return this_node;
+        else this_node = this_node->next_node;
     }
     return NULL;
 }
@@ -186,7 +183,7 @@ matrix generateDirectedMatrix() {
     double a;
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
-            a = (rand() % (max_rand + 1 - min_rand) + min_rand) / 100.0;
+            a = (rand() % (max_rand + 1 - min_rand) + min_rand) / 10.0;
             a *= k;
             s1.matrix[i][j] = a < 1.0 ? 0 : 1;
         }
@@ -197,8 +194,7 @@ matrix generateDirectedMatrix() {
 matrix generateUndirectedMatrix(matrix s2) {
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
-            if (s2.matrix[i][j] == 1)
-                s2.matrix[j][i] = 1;
+            if (s2.matrix[i][j] == 1) s2.matrix[j][i] = 1;
         }
     }
     return s2;
