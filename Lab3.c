@@ -9,7 +9,7 @@
 #define n3 0
 #define n4 3
 #define N (10 + n3)
-#define max_rand 19
+#define max_rand 199
 #define min_rand 0
 #define k (1.0 - n3 * 0.02 - n4 * 0.005 - 0.25)
 #define WIDTH 800
@@ -183,7 +183,7 @@ matrix generateDirectedMatrix() {
     double a;
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
-            a = (rand() % (max_rand + 1 - min_rand) + min_rand) / 10.0;
+            a = (rand() % (max_rand + 1 - min_rand) + min_rand) / 100.0;
             a *= k;
             s1.matrix[i][j] = a < 1.0 ? 0 : 1;
         }
